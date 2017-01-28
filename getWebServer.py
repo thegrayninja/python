@@ -1,3 +1,4 @@
+#get header information from a list of ips/servers
 from subprocess import call 			#allows for the curl command to run
 
 
