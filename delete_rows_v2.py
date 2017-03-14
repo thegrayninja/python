@@ -15,15 +15,13 @@ from sys import argv
 #opens your csv file and saves the good stuff to x
 x = ""
 with open(argv[1], 'rb') as csvfile:
-		#for reference, the test.csv file contains 1 word on each line: Spamming, Spam, spammerson, spamdude
 	delimfile = csv.DictReader(csvfile)
 	for row in delimfile:
-
 
 		if 'None' in row['Risk']:
 			print ('None')
 		else:
-			x = x + '%s,%s' %(row['Host'], row['Risk'])
+			x = x + '%s,%s\n' %(row['Host'], row['Risk'])
 csvfile.close()
 
 
