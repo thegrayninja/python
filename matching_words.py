@@ -5,6 +5,7 @@ second_word = raw_input("Please enter word #2: ")
 def compare_words(first_string, second_string):
 	dict1 = {}
 	dict2 = {}
+	dict3 = []
 
 	for i in first_string:
 		if i in dict1:	
@@ -23,6 +24,13 @@ def compare_words(first_string, second_string):
 		print ("%s and %s contain the same letters!" % (first_word,second_word))
 	else:
 		print ("%s and %s DO NOT contain the same letters :(" % (first_word,second_word))
+
+	for i in reversed(second_string):
+		dict3.append(i)
+	third_string = ''.join(dict3)
+	
+	if first_string == third_string:
+		print ("%s is %s spelled backwards :P" % (second_word, first_word))
 	#remove next comment for debugging! :)	
 	#print ("%s and %s" % (dict1, dict2))
 
