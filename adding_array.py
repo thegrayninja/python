@@ -16,6 +16,6 @@ for i in list1[0]:
 		
 		b += 1
 	a +=1
-	b =	(a+1)	
+	b = (a+1)	
 		
 print ("loop is over")
