@@ -1,3 +1,4 @@
+#not mine..friend showed me this
 def addition(nums, target):
 	result_dict = {}
 	for i in range(len(nums)):
