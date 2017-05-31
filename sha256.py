@@ -12,5 +12,5 @@
 #$6 =SHA-512 Algorithm
 
 import crypt
-x = crypt.crypt('mypassword','\$6\$sAlTSAlt\$')
+x = crypt.crypt('mypassword','$6$sAlTSAlt')
 print(x)
