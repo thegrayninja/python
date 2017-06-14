@@ -1,3 +1,5 @@
+#github.com/thegrayninja
+#run obtain_cidr.py first..which will generate temp_ip.txt
 import os
 import subprocess
 
