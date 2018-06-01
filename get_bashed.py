@@ -65,6 +65,7 @@ def GetData():
             LastActive = CodeData[Counter]["last_active_at"]
         else:
             PrimaryCourseName = "No Active Courses"
+            Percentage = "0"
 
         i = UserStatus()
         i.Email = Email
