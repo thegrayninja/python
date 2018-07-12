@@ -27,10 +27,13 @@ def main():
     with open(app_filename) as AppFile:
         AppData = AppFile.readlines()
 
+
+
     with open(master_filename) as MasterFile:
         MasterData = MasterFile.readlines()
 
-
+    AppData = [host.lower() for host in AppData]
+    MasterData = [host.lower() for host in MasterData]
 
     DataResults = CompareLists(AppData, MasterData)
 
