@@ -3,6 +3,63 @@
 import psutil
 import os
 from subprocess import check_output
+import sys
+
+
+def main():
+
+    ProcessName, LengthInSeconds = ProcessArguments()
+    GetInfoOfSeparateTask(ProcessName, int(LengthInSeconds))
+
+
+def HelpMenu():
+    HelpText = """
+
+Usage:
+    python3 check_system_info.py -p chrome -t 4
+    
+    
+switches:
+    -t    total length in time to run and gather system average
+    -p    name of process. Refer to 'top' as necessary
+    
+        
+"""
+    print(HelpText)
+    sys.exit(0)
+
+
+def ProcessArguments():
+    ProcessName = "Xorg"
+    LengthInSeconds = "10"
+
+    Arguments = sys.argv
+    if len(Arguments) > 1:
+        Counter = 1
+        while Counter < len(Arguments):
+            if Arguments[Counter] == "-p":
+                try:
+                    ProcessName = Arguments[(Counter+1)]
+                except:
+                    print("error - missing process name")
+                    HelpMenu()
+            if Arguments[Counter] == "-t":
+                try:
+                    LengthInSeconds = Arguments[(Counter+1)]
+                except:
+                    print("error - missing length in seconds")
+                    HelpMenu()
+            #print(Arguments[Counter])
+            Counter += 1
+    return ProcessName, LengthInSeconds
+
+
+
+
+
+
+    ArgLength = len(sys.argv)
+
 
 def GetInfoOfCurrentTask():
     pid = os.getpid()
@@ -58,7 +115,8 @@ def GetInfoOfSeparateTask(Name, LengthInSeconds):
 
 
 if __name__ == '__main__':
-    GetInfoOfSeparateTask("chrome", 10)
+    #GetInfoOfSeparateTask("chrome", 2)
+    main()
 
 
 
