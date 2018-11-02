@@ -17,7 +17,7 @@ from smtp_stats import gmail_password, gmail_user, toaddr, fromaddr
 
 def main():
     print("thanks for turning me on")
-    filename = "minecraft_server_version.txt"
+    filename = "/opt/scripts/minecraft_server_version.txt"
     siteUrl = "https://minecraft.net/en-us/download/server/"
     serverVersion = CheckLatestServerVersion(siteUrl)
     versionStatus = 1
@@ -100,13 +100,13 @@ def getServerUrl(siteUrl):
     return 0
 
 
-def upgradeMinecraft():
+def upgradeMinecraft(serverUrl):
     stopStatus = stopMinecraftService()
     if stopStatus != 0:
         stopStatusError = ["Error: Unable to stop minecraft-server.service"]
         return stopStatusError
 
-    updateStatus, updateLog = updateMinecraftServer()
+    updateStatus, updateLog = updateMinecraftServer(serverUrl)
     if updateStatus != 0:
         return updateLog
 
@@ -134,7 +134,7 @@ def updateMinecraftServer(serverUrl):
     updateLog = []
 
     downloadServer = os.system("wget {} /opt/minecraft-stage/server.jar".format(serverUrl))
-    if downloadServer != 0:
+    if downloadServer != 256:
         updateLog.append("Error: Unable to download latest minecraft server.")
         updateLog.append("URL: {}".format(serverUrl))
         return updateLog
