@@ -18,7 +18,8 @@ from smtp_stats import gmail_password, gmail_user, toaddr, fromaddr
 def main():
     print("thanks for turning me on")
     filename = "minecraft_server_version.txt"
-    serverVersion = CheckLatestServerVersion()
+    siteUrl = "https://minecraft.net/en-us/download/server/"
+    serverVersion = CheckLatestServerVersion(siteUrl)
     versionStatus = 1
     if serverVersion != 1:
         versionStatus = comparePreviousVersion(serverVersion, filename)
@@ -27,8 +28,7 @@ def main():
 
     if versionStatus != 1:
         overwriteFile(filename, serverVersion)
-        #Message = "\nThe latest version of Minecraft Server - Java Edition has been released\n\nPlease download it now so your kids don't fight.\n"
-        serverUrl = getServerUrl()
+        serverUrl = getServerUrl(siteUrl)
         Message = upgradeMinecraft(serverUrl)
         sendEmail(Message)
         # TODO alert admin if values are different
@@ -55,8 +55,8 @@ def overwriteFile(filename, serverVersion):
 
 
 
-def CheckLatestServerVersion():
-    url = "https://minecraft.net/en-us/download/server/"
+def CheckLatestServerVersion(siteUrl):
+    url = siteUrl
     urlData = urlopen(url)
     pageContent = urlData.read()
     urlData.close()
@@ -85,9 +85,19 @@ def comparePreviousVersion(serverVersion, filename):
         return serverVersion
 
 
-def getServerUrl():
-    pass
-    #TODO do some bs4 stuff to get url
+def getServerUrl(siteUrl):
+    url = siteUrl
+    urlData = urlopen(url)
+    pageContent = urlData.read()
+    urlData.close()
+
+    soup = BeautifulSoup(pageContent, "html.parser")
+    for item in soup.find_all(attrs={'class': 'col-12 col-md-10 col-lg-8'}):
+        for link in item.find_all('a'):
+            x = re.findall("server.jar", str(link))
+            if len(x) != 0:
+                return link.get('href')
+    return 0
 
 
 def upgradeMinecraft():
